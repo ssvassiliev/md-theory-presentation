@@ -7,9 +7,9 @@
    id="svg6"
    sodipodi:docname="Md_process_summary.svg"
    inkscape:version="1.1-dev (b39e6d56, 2020-09-19)"
-   inkscape:export-filename="/Users/svassili/BST/bst-md-theory-lesson-novice/fig/Md_process_summary.png"
-   inkscape:export-xdpi="299.89999"
-   inkscape:export-ydpi="299.89999"
+   inkscape:export-filename="/Users/svassili/BST/MD_WORKSHOPS/SHORT_VERSIONS_FOR_PRESENTATION/molmodsim-md-theory-lesson-novice/fig/Md_process_summary.png"
+   inkscape:export-xdpi="299.19757"
+   inkscape:export-ydpi="299.19757"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -30,7 +30,6 @@
          id="stop3438" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient3424"
        inkscape:swatch="gradient">
       <stop
@@ -256,8 +255,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.48412716"
-     inkscape:cx="861.34394"
-     inkscape:cy="381.09822"
+     inkscape:cx="625.86863"
+     inkscape:cy="424.47526"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -267,10 +266,10 @@
      fit-margin-bottom="0"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1372"
-     inkscape:window-height="855"
-     inkscape:window-x="120"
-     inkscape:window-y="249"
+     inkscape:window-width="1520"
+     inkscape:window-height="847"
+     inkscape:window-x="72"
+     inkscape:window-y="43"
      inkscape:window-maximized="0"
      units="in">
     <sodipodi:guide
@@ -453,5 +452,27 @@
        d="m 28.869125,145.53608 c 0,0 24.084255,-3.65135 31.962105,-11.83783 7.91696,-8.22712 10.65405,-32.55402 10.65405,-32.55402"
        id="path39-51-9"
        sodipodi:nodetypes="cac" />
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="-2.0214591"
+       y="118.27522"
+       id="text1095"><tspan
+         id="tspan1093"
+         style="font-size:7.05556px;stroke-width:0.264583"
+         x="-2.0214596"
+         y="118.27522"
+         sodipodi:role="line">time=0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7.05556px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="207.84074"
+       y="117.7287"
+       id="text1099"><tspan
+         sodipodi:role="line"
+         id="tspan1097"
+         style="font-size:7.05556px;stroke-width:0.264583"
+         x="207.84074"
+         y="117.7287">time=time+Δt</tspan></text>
   </g>
 </svg>
