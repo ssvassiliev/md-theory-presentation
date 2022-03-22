@@ -59,17 +59,15 @@ keypoints:
 
 |  Shifted potential |   |
 |:---|:---:|
-|<br>- Shift the whole potential uniformly by adding a constant at values below cutoff.<br><br>- Avoids infinite forces.<br><br>- Does not change forces at the distances below cutoff.<br><br> - Introduces a discontinuity in the force at the cutoff distance.<br><br>- Modifies total potential energy. | ![]({{ page.root }}/fig/Shifted_potential.png){: width="100" } |
-
-
+|<br>$\circ$  Shift the whole potential uniformly by adding a constant at values below cutoff.<br>$\circ$  Avoids infinite forces.<br>$\circ$  Does not change forces at the distances below cutoff.<br>$\circ$  Introduces a discontinuity in the force at the cutoff distance.<br>$\circ$  Modifies total potential energy. | ![]({{ page.root }}/fig/Shifted_potential.png){: width="150" } |
 
 |Shifted Force | |
 |:---|:---:|
-|<br>- Shift the whole force so that it vanishes at the cutoff distance.<br><br>- Modifies equations of motion at all distances.<br><br>- Better results at shorter cutoff values compared to the potential shift.<br><br>| ![]({{ page.root }}/fig/Shifted_force.png){: width="100" } |
+|<br>$\circ$ Shift the whole force so that it vanishes at the cutoff distance.<br>$\circ$  Modifies equations of motion at all distances.<br>$\circ$  Better results at shorter cutoff values compared to the potential shift.| ![]({{ page.root }}/fig/Shifted_force.png){: width="150" } |
 
 |Switching Function||
 |:---|:---:|
-|<br>- Modify the shape of the potential function near cutoff.<br><br>- Forces are modified only near the cutoff boundary and they approach zero smoothly.|![]({{ page.root }}/fig/Switching_function.png){: width="100" }  |
+|<br>$\circ$  Modify the shape of the potential function near cutoff.<br>$\circ$  Forces are modified only near the cutoff boundary and they approach zero smoothly.|![]({{ page.root }}/fig/Switching_function.png){: width="150" }  |
 
 ### How to Choose the Appropriate Cutoff Distance?
 - A common practice is to truncate at 2.5 $$\sigma$$.
