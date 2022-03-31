@@ -60,13 +60,3 @@ keypoints:
 | Direct space tolerance| ewald-rtol ($$10^{-5}$$) | PMETolerance ($$10^{-5}$$)| dsum_tol ($$10^{-6}$$) |
 | Interpolaton order    | pme-order (4)            | PMEInterpOrder (4)        | order (4)              |
 
-
-Have a user who needs firewall rules for abaqus to reach their license server 27610@131.202.255.214
-
-
-From this ticket:
-https://support.computecanada.ca/otrs/index.pl?Action=AgentTicketZoom;TicketID=154364
-I have the user who would like to access an ABAQUS license server from Graham:
-- Address is : 131.202.255.214
-- Ports : 27610 and 57610
-Can someone add appropriate firewall rules? Thank you.

@@ -22,39 +22,46 @@ keypoints:
 - The size and the length of MD simulations has been recently vastly improved. 
 - Longer and larger simulations allow us to tackle wider range of problems under a wide variety of conditions.
 
-- Recent example - simulation of the whole SARS-CoV-2 virion.
+----
 
-![Image: Simulation of SARS-CoV-2 with NAMD]({{ page.root }}/fig/Cov2-NAMD.jpg){: width="480" }
+##### Recent example - simulation of the whole SARS-CoV-2 virion 
+- System size: 304,780,149 atoms, 350 Å × 350 Å lipid bilayer, simulation time 84 ns
 
-Figure from [AI-Driven Multiscale Simulations Illuminate Mechanisms of SARS-CoV-2 Spike Dynamics](https://www.biorxiv.org/content/10.1101/2020.11.19.390187v1)
+![Image: Simulation of SARS-CoV-2 with NAMD]({{ page.root }}/fig/Cov2-NAMD.jpg){: width="480"}
 
-### Goals:
+- Showed that spike glycans can modulate the infectivity of the virus.
+- Characterized interactions between the spike and the human ACE2 receptor.
+- Used ML to identify conformational transitions between states and accelerate conformational sampling.
+ 
+Figures from [AI-Driven Multiscale Simulations Illuminate Mechanisms of SARS-CoV-2 Spike Dynamics] [[ref]](https://journals.sagepub.com/doi/10.1177/10943420211006452)
+
+---
+
+### Goals
 - Introduce you to the method of molecular dynamics simulations. 
 - Guide you to using various molecular dynamics simulation packages and utilities.
-- Show how to use Compute Canada clusters for system preparation, simulation and trajectory analysis. 
+- Teach how to use Compute Canada clusters for system preparation, simulation and trajectory analysis. 
 
 The focus will be on reproducibility and automation by introducing scripting and batch processing.
 
 ## The theory behind the method of MD. 
 ### Force Fields
 
-- Understanding complex biological phenomena on the molecular level requires simulations of large systems for a long time windows. 
+- Understanding complex biological phenomena requires simulations of large systems for a long time windows. 
 - The forces acting between atoms and molecules are very complex.
 - Very fast method of evaluations molecular interactions is needed to achieve these goals.  
 
 **Interactions are approximated with a simple empirical potential energy function.**  
 - The potential energy function allows calculating forces: $ \vec{F}=-\nabla{U}(\vec{r}) $
-- Newtons' equation of motion:  the rate of change of momentum $$ \vec{p} $$ of an object equals the force $$ \vec{F} $$ acting on it $ \vec{F}=\frac{d\vec{p}}{dt} $.
-- Once we know forces acting on an object we can apply Newton's equation to calculate how its position changes in time.
+- With the knowledge of the forces acting on an object, we can calculate how the position of that object changes over time:  $ \vec{F}=\frac{d\vec{p}}{dt} $.
 - Advance system with very small time steps assuming the velocities don't change.
 
 
-| ![Flow diagram of MD process]({{ page.root }}/fig/Md_process_summary.png){: width="480" } |
+| ![Flow diagram of MD process]({{ page.root }}/fig/Md_process_summary.png){: width="400" } |
 |:--:|
 | Flow diagram of MD simulation |
 
-
-**A force field is a set of empirical energy functions and parameters allowing to calculate the potential energy *U* as a function of the molecular coordinates.**
+**A force field is a set of empirical energy functions and parameters used to calculate the potential energy *U* as a function of the molecular coordinates.**
 
 - Potential energy function used in MD simulations is composed of non-bonded and bonded interactions:  
 
@@ -82,6 +89,9 @@ Examples: [AMOEBA](https://pubmed.ncbi.nlm.nih.gov/24163642/), [DRUDE](https://p
 
 #### Non-Bonded Terms
 - Describe non-elecrostatic and electrostatic interactions between all pairs of atoms. 
+
+![graph: Interactions]({{ page.root }}/fig/nb_matrix.svg){: width="260" }
+
 - Non-elecrostatic potential energy is most commonly described with the Lennard-Jones potential.
 
 #### The Lennard-Jones potential
@@ -89,12 +99,11 @@ Examples: [AMOEBA](https://pubmed.ncbi.nlm.nih.gov/24163642/), [DRUDE](https://p
 
 <center> $V_{LJ}(r)=\frac{C12}{r^{12}}-\frac{C6}{r^{6}}$ </center> <br>
 
-
 - The $$r^{-12}$$ term approximates the strong Pauli repulsion originating from overlap of electron orbitals.
 -  The $$r^{-6}$$ term describes weaker attractive forces acting between local dynamically induced dipoles in the valence orbitals.
 - The too steep repulsive part often leads to an overestimation of the pressure in the system.
 
-![graph: Lennard-Jones potential]({{ page.root }}/fig/lennard-jones.png){: width="360" }
+![graph: Lennard-Jones potential]({{ page.root }}/fig/lj.svg){: width="360" }
 
 - The LJ potential is commonly expressed in terms of the well depth $$\epsilon$$ and the van der Waals radius $$\sigma$$:  
 
@@ -109,6 +118,9 @@ Examples: [AMOEBA](https://pubmed.ncbi.nlm.nih.gov/24163642/), [DRUDE](https://p
 - The *LJ* interactions between different types of atoms are computed by combining the *LJ* parameters. 
 - Avoid huge number of parameters for each combination of different atom types.
 - Different force fields use different combining rules.
+
+![Combining rules ]({{ page.root }}/fig/combining_rules.svg){: width="380" }
+
 - The arithmetic mean (Lorentz) is motivated by collision of hard spheres
 - The geomertric mean (Berthelot) has little physical argument. 
 
@@ -131,18 +143,18 @@ $$\sigma_{ij}=\left(\frac{\sigma_{ii}^{6}+\sigma_{jj}^{6}}{2}\right)^{\frac{1}{6
 
 **Hybrid (AMBER-ii)** 
 - Lorentz–Berthelot for H and the Waldman–Hagler for other elements.    
-- Implemented in the [AMBER-ii](https://pubs.acs.org/doi/abs/10.1021/acs.jpcb.5b07233) force field for perfluoroalkanes, noble gases, and their mixtures with alkanes.
+- Implemented in the [AMBER-ii](https://pubs.acs.org/doi/abs/10.1021/acs.jpcb.5b07233) force field for perfluoroalkanes, noble gases, and their mixtures with alkanes.<br>
 
-<br>
 #### The Buckingham potential
 - Replaces the repulsive $$r^{-12}$$ term in Lennard-Jones potential with exponential function of distance:     
 
-
 <center>  $$V_{B}(r)=Aexp(-Br) -\frac{C}{r^{6}}$$ </center>
+
+![graph: Buckingham potential]({{ page.root }}/fig/lj-buck.svg){: width="360" }
 
 - Exponential function describes electron density more realistically
 - Computationally more expensive to calculate.
-- Risk of "Buckingham Catastrophe"
+- Risk of "buckingham catastrophe" at short distances.
 
 **Combining rule (GROMACS)**:
 
@@ -153,7 +165,7 @@ $$A_{ij}=\sqrt{(A_{ii}A_{jj})} \qquad B_{ij}=2/(\frac{1}{B_{ii}}+\frac{1}{B_{jj}
 - Point charges are assigned to the positions of atomic nuclei to approximate the electrostatic potential around a molecule. 
 - The Coulomb's law: $V_{Elec}=\frac{q_{i}q_{j}}{4\pi\epsilon_{0}\epsilon_{r}r_{ij}}$
 
-![graph: electrostatic potential]({{ page.root }}/fig/Coulomb_interaction.png){: width="360" }
+![graph: electrostatic potential]({{ page.root }}/fig/Coulomb_interaction.png){: width="300" }
 
 ### Short-range and Long-range Interactions
 - Interaction is short-range if the potential decreases faster than *r<sup>-3</sup>*
@@ -193,15 +205,12 @@ $$A_{ij}=\sqrt{(A_{ii}A_{jj})} \qquad B_{ij}=2/(\frac{1}{B_{ii}}+\frac{1}{B_{jj}
 - Sum of any number of periodic functions, *n* - periodicity,  $$\delta$$ - phase shift angle.
 
  <center>$$V_{Dihed}=k_\phi(1+cos(n\phi-\delta)) + ...$$ </center>
-
-
-![graph: torsion/dihedral potential]({{ page.root }}/fig/dihedral.png){: width="360" }
+ ![graph: torsion/dihedral potential]({{ page.root }}/fig/dihedral.png){: width="300" }
 
 - n represents the number of potential maxima or minima generated in a 360° rotation.
+![graph: torsion/dihedral potential]({{ page.root }}/fig/dih.svg){: width="360" }
 
-|![graph: torsion/dihedral potential]({{ page.root }}/fig/dihedral-cis-trans.png){: width="360" }|
-|:--:|
-|Combination of n=2 and n=3 dihedrals to reproduce cis/trans and trans/gauche energy differences in ethylene glycol| 
+- Combination of n=2 and n=3 dihedrals used to reproduce cis/trans and trans/gauche energy differences in ethylene glycol
 
 #### The improper torsion potential
 - Also known as 'out-of-plane bending'
@@ -209,7 +218,7 @@ $$A_{ij}=\sqrt{(A_{ii}A_{jj})} \qquad B_{ij}=2/(\frac{1}{B_{ii}}+\frac{1}{B_{jj}
 - Used to enforce planarity. 
 - Given by a harmonic function: $V_{Improper}=k_\phi(\phi-\phi_0)^2$
 
-![graph: improper-dihedral potential]({{ page.root }}/fig/improper.png){: width="360" }
+![graph: improper-dihedral potential]({{ page.root }}/fig/improper.svg){: width="200" }
 
 - The dihedral angle $$\phi$$ is the angle between planes ijk and ijl.
 
@@ -253,9 +262,23 @@ $$A_{ij}=\sqrt{(A_{ii}A_{jj})} \qquad B_{ij}=2/(\frac{1}{B_{ii}}+\frac{1}{B_{jj}
 ### Exclusions from Non-Bonded Interactions
 - In pairs of atoms connected by chemical bonds bonded energy terms replace non-bonded interactions. 
 - All pairs of connected atoms separated by up to 2 bonds (1-2 and 1-3 pairs) are excluded from non-bonded interactions. It is assumed that they are properly described with bond and angle potentials.
-- 1-4 interaction respresents a special case where both bonded and non-bonded interactions are required for a reasonable description.  However, due to the short distance between the 1–4 atoms full strength non-bonded interactions are too strong and must be scaled down.
+
+![exclusions]({{ page.root }}/fig/exclusions.svg){: width="240" }
+
+- 1-4 interaction represents a special case where both bonded and non-bonded interactions are required for a reasonable description.  However, due to the short distance between the 1–4 atoms full strength non-bonded interactions are too strong and must be scaled down.
 - Non-bonded interaction between 1-4 pairs depends on the specific force field. 
 - Some force fields exclude VDW interactions and scale down electrostatic (AMBER) while others may modify both or use electrostatic as is.
+
+### What Information Can MD Simulations Provide?
+
+With the help of MD it is possible to model phenomena that cannot be studied experimentally. For example 
+- Understand atomistic details of conformational changes, protein unfolding, interactions between proteins and drugs
+- Study thermodynamics properties (free energies, binding energies)
+- Study biological processes such as (enzyme catalysis, protein complex assembly, protein or RNA folding, etc).
+
+For more examples of the types of information MD simulations can provide read the review article: [Molecular Dynamics Simulation for All](https://www.cell.com/neuron/fulltext/S0896-6273(18)30684-6?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0896627318306846%3Fshowall%3Dtrue).
+
+
 
 > ## Specifying Exclusions
 > **GROMACS**
@@ -296,13 +319,4 @@ $$A_{ij}=\sqrt{(A_{ii}A_{jj})} \qquad B_{ij}=2/(\frac{1}{B_{ii}}+\frac{1}{B_{jj}
 > If **scaled1-4** is set, the electrostatic interactions for 1-4 pairs are multiplied by a constant factor specified by the **1-4scaling** parameter. The LJ interactions for 1-4 pairs are divided by **scnb**.
 {: .callout}
 
-
-
-### What Information Can MD Simulations Provide?
-
-With the help of MD it is possible to model phenomena that cannot be studied experimentally. For example 
-- Understand atomistic details of conformational changes, protein unfolding, interactions between proteins and drugs
-- Study thermodynamics properties (free energies, binding energies)
-- Study biological processes such as (enzyme catalysis, protein complex assembly, protein or RNA folding, etc).
-
-For more examples of the types of information MD simulations can provide read the review article: [Molecular Dynamics Simulation for All](https://www.cell.com/neuron/fulltext/S0896-6273(18)30684-6?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS0896627318306846%3Fshowall%3Dtrue).
+ 

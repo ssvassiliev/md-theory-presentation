@@ -45,15 +45,18 @@ Drawbacks:
 - Not recommended for classical MD
 - Can be used to integrate some other equations of motion. For example, GROMACS offers a Euler integrator for Brownian (position Langevin) dynamics.
 
-
-### The Verlet Algorithm
-Using the current positions and forces and the previous positions calculate the positions at the next time step:
-
-$\overrightarrow{r}(t+\delta{t})=2\overrightarrow{r}(t)-\overrightarrow{r}(t-\delta{t})+a(t)\delta{t}^2$
-
-The Verlet algorithm  [(Verlet, 1967)]({{ page.root }}/reference.html#Verlet-1967) requires positions at two time steps. It is inconvenient when starting a simulation. While velocities are not needed to compute trajectories, they are useful for calculating observables e.g. the kinetic energy. The velocities can only be computed once the next positions are calculated:
-
-$\overrightarrow{v}(t+\delta{t})=\frac{r{(t+\delta{t})-r(t-\delta{t})}}{2\delta{t}}$
+> ## The original Verlet Algorithm
+>Using the current positions and forces and the previous positions calculate the positions at the next time step:  
+>$\qquad\vec{r}(t+\delta{t})=2\vec{r}(t)-\vec{r}(t-\delta{t})+a(t)\delta{t}^2$<br>
+>  
+>- The Verlet algorithm  [(Verlet, 1967)]({{ page.root }}/reference.html#Verlet-1967) requires positions at two time steps. It is inconvenient when starting a simulation when only current positions are available.  
+> 
+>While velocities are not needed to compute trajectories, they are useful for calculating observables e.g. the kinetic energy. The velocities can only be computed once the next positions are calculated:
+>
+>$\qquad\vec{v}(t+\delta{t})=\frac{r{(t+\delta{t})-r(t-\delta{t})}}{2\delta{t}}$
+>
+>The Verlet algorithm is time-reversible and energy conserving.
+{: .callout}
 
 ### The Velocity Verlet Algorithm
 Euler integrator can be improved by introducing evaluation of the acceleration at the next time step. Recollect that acceleration is a function of atomic coordinates and is fully defined by interaction potential.
@@ -88,9 +91,9 @@ The Velocity Verlet algorithm is mathematically equivalent to the original Verle
 Larger time step allows to run simulation faster, but accuracy decreases.
 
 - Verlet family integrators are stable for time steps
-$$\delta{t}\leq\frac{2}{w}$$ where $$\omega$$ is angular frequency.
+$$\delta{t}\leq\frac{1}{\pi{f}}$$ where $$f$$ is oscillation frequency.
 
-- Vibrations of bonds with hydrogens have period of 10 fs
+- Vibrations of bonds with hydrogens have period of 10 fs 
 - Bond vibrations involving heavy atoms and angles involving hydrogen atoms have period of 20 fs
 
 - Stretching of bonds with the lightest atom H is the fastest motion. 

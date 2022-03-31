@@ -28,7 +28,7 @@ keypoints:
 
 ## Neighbour Searching Methods
  - Divide simulation system into grid cells - cell lists. 
- - Compile a list of neighbors for each particle searching all pairs - Verlet lists.
+ - Compile a list of neighbors for each particle by searching all pairs - Verlet lists.
 
 ### Cell Lists
 - Divide the simulation domain into cells with edge length greater or equal to the cutoff distance. 
