@@ -75,17 +75,15 @@ Many water models with different level of complexity (the number of interaction 
 |:-|:-:|
 |**TIP4P-Ew**<br><br>$\circ$  Improves association/dissociation balance compared to 3-point models. | ![Water Models]({{ page.root }}/fig/tip4p.svg){: width="150"}|
 
-#### Accuracy problems.
-- TIP5P predicts excellent water structure, but poor hydration energies. 
-- TIP3P model predicts hydration free energies of small neutral molecules more accurately than the TIP4PEw model.
+#### Water models have their limitations.
 - Early water models were developed with cut-off of electrostatic interactions. Using these models with full electrostatic method results in stronger electrostatic interactions and consequently higher density.
-
+- Most of the more complex new water models attempt to reproduce specific properties of a specific phase, but this comes at the expense of other properties.
+- TIP3P model predicts hydration free energies of small neutral molecules more accurately than the TIP4PEw model.
+- 4-charge 5-point model TIP5P predicts excellent water structure, but poor hydration energies. 
 
 |Challenges in developing water models.||
 |:-|:-:|
 |<br>$\circ$ Finding an accurate yet simplified description of the charge distribution that can adequately account for the hydrogen bonding in the liquid phase.<br>$\circ$ Traditional approach is to place point charges on or near the nuclei.<br>$\circ$ Electrostatic potential of water molecule is reproduced considerably more accurately with 3 point charges when they form tight cluster.|![Charge distribution of the water molecule]({{ page.root }}/fig/water_charge_densityl.gif){: width="300"}|
-
-
 
 |||
 |:-|:-:|
@@ -99,7 +97,7 @@ This indicates that three point charges, even if placed optimally, are not enoug
 
 ![Quality scores of water models]({{ page.root }}/fig/Water_models_quality_scores.gif){: width="350"}
 
-Quality score distribution of test water models in the space of dipole (μ) and quadrupole (QT). Figure from[2].
+The distribution of quality scores for different water models in the space of dipole (μ) and quadruple (QT) moments. Figure from [2].
 
 #### Performance Considerations
 - Computation cost is proportional to the number of pairwise distances.
@@ -110,7 +108,7 @@ Quality score distribution of test water models in the space of dipole (μ) and 
 - Water models commonly used in bio-molecular simulation have been traditionally parameterized only for a single temperature of 298K (SPC/E, TIP3P, etc).  
 
 
-#### Force Field Parameters of the common Water Models
+### Force Field Parameters of the common Water Models
 
 |     | TIP3P  | SPC/E   | TIP4P-Ew | OPC    |
 |---  |--------|---------|----------|--------|

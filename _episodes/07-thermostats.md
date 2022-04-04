@@ -91,7 +91,7 @@ MD simulations usually simulate one of the following thermodynamic ensembles:
 Heat flows between the simulation system and the heat bath with the rate defined by a time constant $$\tau_T$$ 
 
 ### 3. Stochastic methods
-- Randomization impair correlated motions and thus slow down the kinetics of the system. 
+Randomly assign a subset of atoms new velocities based on Maxwell-Boltzmann distributions for the target temperature. Randomization interferes with correlated motion and thus slows down the system's kinetics.
 
 #### Andersen thermostat
 - Assign a subset of atoms new velocities that are randomly selected from the Maxwell-Boltzmann distribution for the target temperature. 
@@ -117,6 +117,8 @@ Heat flows between the simulation system and the heat bath with the rate defined
 - The frictional force and the random force combine to give the correct canonical ensemble.
 
 The amount of friction is controlled by the damping coefficient.  If its value is high, atoms will experience too much unnatural friction, however if the coefficient is too low, your system will fluctuate too far away from the desired temperature. The default value is usually 1/ps.
+
+
 
 ### 4. Extended system thermostats
 #### Nosé-Hoover thermostat

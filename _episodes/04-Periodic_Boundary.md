@@ -22,27 +22,17 @@ keypoints:
 ![Figure: Periodic Boundary Conditions]({{ page.root }}/fig/periodic_boundary.png){: width="240" }
 
 - Unit cell is surrounded by an infinite number of translated copies in all directions (images). 
-- When a particle in unit cell moves across the boundary its image reappears on the opposite side. 
+- When a particle in unit cell moves across the boundary it reappears on the opposite side. 
 - Each molecule always interacts with its neighbors even though they may be on opposite sides of the simulation box. 
 - Artifacts caused by the interaction of the isolated system with a vacuum are replaced with the PBC artifacts which are in general much less severe.
 
 
 ### Choosing periodic box size and shape.
-
-- The minimum box size should extend at least 10 nm from the solute.
-- The shortest periodic box vector should be at least twice bigger than the cuf-off radius.  
-
-![]({{ page.root }}/fig/box_size.svg){: width="400" }
-
-- In simulations with macromolecules solvent molecules should not "feel" both sides of a solute.
-
 #### Cubic periodic box
 - A cubic box is the most intuitive and common choice
 - Cubic box is inefficient due to irrelevant water molecules in the corners. 
 
-
 ![]({{ page.root }}/fig/cubic_box.svg){: width="200" }
-
 
 - Ideal simulation system is a sphere of water surrounding the macromolecule, but spheres can't be packed to fill space.
 
@@ -62,6 +52,19 @@ keypoints:
 ![]({{ page.root }}/fig/triclinic_cell.gif){: width="200" }
 
 - The optimal triclinic cell has about 71% the volume of the optimal rectangular cell.
+
+####  Box size
+- The minimum box size should extend at least 10 nm from the solute.
+
+![10 nm margin]({{ page.root }}/fig/box_size-2.svg){: width="200" }
+
+- The shortest periodic box vector should be at least twice bigger than the cuf-off radius.  
+
+![Figure: Periodic Boundary Conditions]({{ page.root }}/fig/periodic_boundary-4.svg){: width="240" }
+
+- In simulations with macromolecules solvent molecules should not "feel" both sides of a solute.
+
+![]({{ page.root }}/fig/box_size.svg){: width="400" }
 
 #### Pitfalls
  - A simulation system with elongated solute in cubic or dodecahedral box  will have a large amount of water located far away from the solute.
