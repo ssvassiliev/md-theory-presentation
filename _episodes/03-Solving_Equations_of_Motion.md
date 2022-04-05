@@ -28,10 +28,10 @@ keypoints:
 ### The Euler Algorithm
 - The simplest integration method
 
-1. Use $\overrightarrow{r}, \overrightarrow{v},\overrightarrow{a}$ at time $t$ to compute   $\overrightarrow{r}(t+\delta{t})$ and $\overrightarrow{v}(t+\delta{t})$:
+1. Use $\boldsymbol{r}, \boldsymbol{v},\boldsymbol{a}$ at time $t$ to compute   $\boldsymbol{r}(t+\delta{t})$ and $\boldsymbol{v}(t+\delta{t})$:
 
 <span style="color:gray">
-$\qquad\overrightarrow{r}(t+\delta{t})=\overrightarrow{r}(t)+\overrightarrow{v}(t)\delta{t}+\frac{1}{2}\overrightarrow{a}(t)\delta{t}^2,\qquad\overrightarrow{v}(t+\delta{t})=\overrightarrow{v}(t)+\frac{1}{2}\overrightarrow{a}(t)\delta{t}$
+$\qquad\boldsymbol{r}(t+\delta{t})=\boldsymbol{r}(t)+\boldsymbol{v}(t)\delta{t}+\frac{1}{2}\boldsymbol{a}(t)\delta{t}^2,\qquad\boldsymbol{v}(t+\delta{t})=\boldsymbol{v}(t)+\frac{1}{2}\boldsymbol{a}(t)\delta{t}$
 </span>
 
 - Assumes that acceleration does not change during time step. 
@@ -59,13 +59,13 @@ Drawbacks:
 {: .callout}
 
 ### The Velocity Verlet Algorithm
-Euler integrator can be improved by introducing evaluation of the acceleration at the next time step. Recollect that acceleration is a function of atomic coordinates and is fully defined by interaction potential.
+Euler integrator can be improved by introducing evaluation of the acceleration at the next time step. You may recall that acceleration is a function of atomic coordinates and is determined completely by interaction potential.
 
 - The velocities, positions and forces are calculated at the same time using the following algorithm:
 
-1. Use $\overrightarrow{r}, \overrightarrow{v},\overrightarrow{a}$ at time $t$ to compute   $\overrightarrow{r}(t+\delta{t})$:<span style="color:gray"> $\qquad\overrightarrow{r}(t+\delta{t})=\overrightarrow{r}(t)+\overrightarrow{v}(t)\delta{t}+\frac{1}{2}\overrightarrow{a}(t)\delta{t}^2$ </span>
-2. Derive $ \overrightarrow{a}(t+\delta{t})$ from the interaction potential using new positions $\overrightarrow{r}(t+\delta{t})$ 
-3.  Use both $\overrightarrow{a}(t)$ and $\overrightarrow{a}(t+\delta{t})$ to compute $\overrightarrow{v}(t+\delta{t})$:  <span style="color:gray"> $\quad\overrightarrow{v}(t+\delta{t})=\overrightarrow{v}(t)+\frac{1}{2}(\overrightarrow{a}(t)+\overrightarrow{a}(t+\delta{t}))\delta{t} $</span>
+1. Use $\boldsymbol{r}, \boldsymbol{v},\boldsymbol{a}$ at time $t$ to compute   $\boldsymbol{r}(t+\delta{t})$:<span style="color:gray"> $\qquad\boldsymbol{r}(t+\delta{t})=\boldsymbol{r}(t)+\boldsymbol{v}(t)\delta{t}+\frac{1}{2}\boldsymbol{a}(t)\delta{t}^2$ </span>
+2. Derive $ \boldsymbol{a}(t+\delta{t})$ from the interaction potential using new positions $\boldsymbol{r}(t+\delta{t})$ 
+3.  Use both $\boldsymbol{a}(t)$ and $\boldsymbol{a}(t+\delta{t})$ to compute $\boldsymbol{v}(t+\delta{t})$:  <span style="color:gray"> $\quad\boldsymbol{v}(t+\delta{t})=\boldsymbol{v}(t)+\frac{1}{2}(\boldsymbol{a}(t)+\boldsymbol{a}(t+\delta{t}))\delta{t} $</span>
 
 - The Verlet algorithm is time-reversible and energy conserving.
 
@@ -79,9 +79,9 @@ The Velocity Verlet algorithm is mathematically equivalent to the original Verle
 - The only difference is that the velocities are not calculated at the same time as positions.
 - Positions and velocities are computed at interleaved time points, staggered in such a way that they "leapfrog" over each other.
 
-1. Derive $ \overrightarrow{a}(t)$ from the interaction potential using positions $\overrightarrow{r}(t)$ 
-2. Use $\overrightarrow{v}(t-\frac{\delta{t}}{2})$ and $\overrightarrow{a}(t)$ to compute $\overrightarrow{v}(t+\frac{\delta{t}}{2})$:<span style="color:gray"> $\qquad\overrightarrow{v}(t+\frac{\delta{t}}{2})=\overrightarrow{v}(t-\frac{\delta{t}}{2}) + \overrightarrow{a}(t)\delta{t}$
-3. Use current $\overrightarrow{r}(t)$ and $\overrightarrow{v}(t+\frac{\delta{t}}{2})$ to compute $\overrightarrow{r}(t+\delta{t})$ : <span style="color:gray"> $\qquad\overrightarrow{r}(t+\delta{t})=\overrightarrow{r}(t)+\overrightarrow{v}(t+\frac{\delta{t}}{2})\delta{t}$ </span>
+1. Derive $ \boldsymbol{a}(t)$ from the interaction potential using positions $\boldsymbol{r}(t)$ 
+2. Use $\boldsymbol{v}(t-\frac{\delta{t}}{2})$ and $\boldsymbol{a}(t)$ to compute $\boldsymbol{v}(t+\frac{\delta{t}}{2})$:<span style="color:gray"> $\qquad\boldsymbol{v}(t+\frac{\delta{t}}{2})=\boldsymbol{v}(t-\frac{\delta{t}}{2}) + \boldsymbol{a}(t)\delta{t}$
+3. Use current $\boldsymbol{r}(t)$ and $\boldsymbol{v}(t+\frac{\delta{t}}{2})$ to compute $\boldsymbol{r}(t+\delta{t})$ : <span style="color:gray"> $\qquad\boldsymbol{r}(t+\delta{t})=\boldsymbol{r}(t)+\boldsymbol{v}(t+\frac{\delta{t}}{2})\delta{t}$ </span>
  
 - The Leap Frog and the Velocity Verlet integrators give equivalent trajectories.
 - Restart files are different 

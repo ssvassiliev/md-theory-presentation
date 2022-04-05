@@ -13,7 +13,7 @@ keypoints:
 - "Periodic box should not restrict molecular motions in any way."
 - "The macromolecule shape, rotation and conformational changes should be taken into account in choosing the periodic box parameters."
 ---
-### How to simulate a bulk (gas, liquid or solid) system by using only a small part?
+What is PBC and why is it important?
 - In most cases we want to simulate a system in realistic environment, such as solution.
 - Try simulating a droplet of water, it will simply evaporate.
 - We need a boundary to contain water and control temperature, pressure, and density. 

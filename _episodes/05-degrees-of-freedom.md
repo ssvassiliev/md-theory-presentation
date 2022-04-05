@@ -52,7 +52,7 @@ keypoints:
 - At low temperature this condition is not satisfied, only a few vibrational states are occupied and the equipartition principle is not typically applicable.
 
 #### Increasing efficiency of thermodynamic sampling.  
-When attempting to compute thermodynamic quantities with a molecular simulation, we need to sample a configuration space with the dimensionality given by the number of degrees of freedom.  Lowering the number of degrees of freedom (of course if physically justifiable) will increase the efficiency of the thermodynamic sampling.
+By reducing the number of degrees of freedom we can increase thermodynamic sampling efficiency. 
 
 - Force fields remove the electrons’ degrees of freedom by replacing them with atom centered charges. 
 - An implicit solvent model eliminates the degrees of freedom associated with the solvent molecules.

@@ -96,12 +96,95 @@ For such quantities even a cutoff at 2.5 $$ \sigma $$ gives inaccurate results, 
 - Short cutoff may lead to an increase in the temperature of the system over time. 
 - The best practice is to carry out trial simulations without temperature control to test it for energy leaks or sources before a production run.
 
-## Truncation of the Electrostatic Interactions
-- Electrostatic interactions occurring over long distances are important for biological molecules. 
-- Simple increase of the cutoff distance to account for long-range interactions can dramatically raise simulation time. 
-- In periodic simulation systems, the electrostatic interaction is divided into two parts: a short-range contribution, and a long-range contribution. 
-- The short-range contribution is calculated by exact summation of all pairwise interactions of atoms separated by a distance that is less than cutoff in real space. 
-- The forces beyond the cutoff radius are approximated in Fourier space commonly by the Particle-Mesh Ewald (PME) method.
+## Truncation of the Electrostatic Interactions 
+- The electrostatic interaction is divided into two parts: a short-range and a long-range.
+- The short-range contribution is calculated by exact summation. 
+- The forces beyond the cutoff radius are approximated using Particle-Mesh Ewald (PME) method.
+
+<br><br>
+> ## Selecting Neighbour Searching Methods
+> **GROMACS**
+>
+> Neighbour searching is specified in the run parameter file **mdp**.
+> ~~~
+>cutoff-scheme  =  group
+>; Generate a pair list for groups of atoms. Since version 5.1 group list has been deprecated and only Verlet scheme is available.
+>
+>cutoff-scheme  =  Verlet
+>; Generate a pair list with buffering. The buffer size is automatically set based on verlet-buffer-tolerance, unless this is set to -1, in which case rlist will is used.
+>
+>; Neighbour search method.
+>ns-type = grid
+>; Make a grid in the box and only check atoms in neighboring grid cells.
+>
+>ns-type = simple
+>; Loop over every atom in the box.
+>
+>nstlist = 5
+>; Frequency to update the neighbour list. If set to 0 the neighbour list is constructed only once and never updated. The default value is 10.
+>
+> ~~~
+> {: .file-content}
+> **NAMD**
+>
+> When run in parallel NAMD uses a combination of spatial decomposition into grid cells (patches) and Verlet lists with extended cutoff distance.
+>~~~
+> stepspercycle 10
+># Number of timesteps in each cycle. Each cycle represents the number of timesteps between atom reassignments. Default value is 20.
+>
+>pairlistsPerCycle 2
+># How many times per cycle to regenerate pairlists. Default value is 2.
+> ~~~
+> {: .file-content}
+{: .callout}
+
+
+> ## Selecting LJ Potential Truncation Method
+> **GROMACS**
+>
+>Truncation of LJ potential is specified in the run parameter file **mdp**.
+>
+> ~~~
+> vdw-modifier = potential-shift
+> ;  Shifts the VDW potential by a constant such that it is zero at the rvdw.
+>
+> vdw-modifier = force-switch
+> ;  Smoothly switches the forces to zero between rvdw-switch and rvdw.
+>
+> vdw-modifier = potential-switch
+> ;  Smoothly switches the potential to zero between rvdw-switch and rvdw.
+>
+>vdw-modifier = none
+>
+>rvdw-switch = 1.0
+>;  Where to start switching.
+>
+> rvdw = 1.2
+>;  Cut-off distance
+> ~~~
+> {: .file-content}
+> **NAMD**
+>
+>Truncation of LJ potential is specified in the run parameter file **mdin**.
+> ~~~
+> cutoff 12.0
+> # Cut-off distance common to both electrostatic and van der Waals calculations
+>
+> switching on
+># Turn switching on/off. The default value is off.
+>
+>switchdist 10.0
+># Where to start switching
+>
+> vdwForceSwitching on
+># Use force switching for VDW. The default value is off.
+> ~~~
+> {: .file-content}
+> **AMBER force fields**
+>
+> AMBER force fields are developed with hard truncation. Do not use switching or shifting with these force fields.
+{: .callout}
+
 
 > ## Selecting Cutoff Distance
 > **GROMACS**

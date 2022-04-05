@@ -135,15 +135,16 @@ $$\sigma_{ij}=\sqrt{\sigma_{ii}\times\sigma_{jj}}  \qquad \epsilon_{ij}=\sqrt{\e
 $$\sigma_{ij}=\frac{\sigma_{ii}+\sigma_{jj}}{2} \qquad  \epsilon_{ij}=\sqrt{\epsilon_{ii}\times\epsilon_{jj}}$$  
 - Known issues: overestimates the well depth
 
-**Waldman–Hagler:**  
+>## Less common combining rules.
+>**Waldman–Hagler:**
+>
+>$$\sigma_{ij}=\left(\frac{\sigma_{ii}^{6}+\sigma_{jj}^{6}}{2}\right)^{\frac{1}{6}}$$ , $$ \epsilon_{ij}=\sqrt{\epsilon_{ij}\epsilon_{jj}}\times\frac{2\sigma_{ii}^3\sigma_{jj}^3}{\sigma_{ii}^6+\sigma_{jj}^6}$$
+>
+>This combining rule was developed specifically for simulation of noble gases.
+>
+>**Hybrid** (the Lorentz–Berthelot for H and the Waldman–Hagler for other elements). Implemented in the [AMBER-ii](https://pubs.acs.org/doi/abs/10.1021/acs.jpcb.5b07233) force field for perfluoroalkanes, noble gases, and their mixtures with alkanes.
+{: .callout}
 
-$$\sigma_{ij}=\left(\frac{\sigma_{ii}^{6}+\sigma_{jj}^{6}}{2}\right)^{\frac{1}{6}} \qquad \epsilon_{ij}=\sqrt{\epsilon_{ij}\epsilon_{jj}}\times\frac{2\sigma_{ii}^3\sigma_{jj}^3}{\sigma_{ii}^6+\sigma_{jj}^6}$$
-
-- Developed specifically for simulation of noble gases.
-
-**Hybrid (AMBER-ii)** 
-- Lorentz–Berthelot for H and the Waldman–Hagler for other elements.    
-- Implemented in the [AMBER-ii](https://pubs.acs.org/doi/abs/10.1021/acs.jpcb.5b07233) force field for perfluoroalkanes, noble gases, and their mixtures with alkanes.<br>
 
 #### The Buckingham potential
 - Replaces the repulsive $$r^{-12}$$ term in Lennard-Jones potential with exponential function of distance:     
@@ -175,7 +176,7 @@ $$A_{ij}=\sqrt{(A_{ii}A_{jj})} \qquad B_{ij}=2/(\frac{1}{B_{ii}}+\frac{1}{B_{jj}
 
 > ## Counting Non-Bonded Interactions
 >
-> How many non-bonded interactions are in the system with ten Argon atoms?
+> How many non-bonded interactions are in the system with ten Argon atoms? 45, 90, 100 or 200?
 >
 > > ## Solution
 > >
