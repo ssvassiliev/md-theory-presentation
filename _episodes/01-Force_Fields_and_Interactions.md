@@ -176,7 +176,7 @@ $$A_{ij}=\sqrt{(A_{ii}A_{jj})} \qquad B_{ij}=2/(\frac{1}{B_{ii}}+\frac{1}{B_{jj}
 
 > ## Counting Non-Bonded Interactions
 >
-> How many non-bonded interactions are in the system with ten Argon atoms? 45, 90, 100 or 200?
+> How many non-bonded interactions are in the system with ten Argon atoms? 10, 45, 90, or 200?
 >
 > > ## Solution
 > >
